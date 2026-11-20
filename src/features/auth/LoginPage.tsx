@@ -1,6 +1,12 @@
 function LoginPage() {
+
+function handleSubmit(e: React.FormEvent<HTMLFormElement>){ 
+  e.preventDefault();
+  console.log("Form submitted")
+}
+
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <h1>Rehabit</h1>
 
       <label htmlFor="email">Email</label>
