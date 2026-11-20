@@ -1,5 +1,5 @@
 
-import LoginPage from './features/auth/LoginPage'
+import LoginPage from '@/features/auth/LoginPage'
 
 function App() {
   return <LoginPage />
