@@ -70,7 +70,7 @@ React 19 · TypeScript 6 `strict` · Vite 8 + React Compiler · react-router-dom
 - Los nombres dicen exactamente qué hacen. Nada de `data`, `temp`, `handleThing` ni `process`.
 - **Mejor bucles `for...of`** que `map`/`filter`/`reduce` encadenados. `map` está bien para pintar listas en JSX.
 - Constantes globales solo si las usan 2 o más funciones, o los tests. Si no, van dentro de la función.
-- **Sin comentarios** salvo para explicar un *porqué* que no se ve en el código. Los apuntes de aprendizaje van en `docs/`, no en el código.
+- **Sin comentarios** salvo para explicar un _porqué_ que no se ve en el código. Los apuntes de aprendizaje van en `docs/`, no en el código.
 - Imports con el alias `@/`.
 - Sufijos de archivo: `.service.ts`, `.schemas.ts`, `.store.ts`, `Page.tsx`, `-form.ts`, y `.test.ts` al lado del archivo que prueba.
 
@@ -90,13 +90,13 @@ React 19 · TypeScript 6 `strict` · Vite 8 + React Compiler · react-router-dom
 
 ## Skills de este proyecto (`.claude/skills/`)
 
-| Comando | Para qué |
-|---|---|
-| `/sesion empezar` · `/sesion terminar` | Abrir y cerrar una sesión de estudio (repaso, objetivo, actualizar `PROGRESO.md`) |
-| `/aprende-front <tema>` | Entender un concepto o un trozo de código del proyecto en 5 minutos |
-| `/pista` | Siguiente escalón de la escalera de pistas |
-| `/revisa [archivo]` | Revisión de código de mentor: funciona, se entiende, respeta la arquitectura |
-| `/error` | Entender un error de la consola, del navegador o de TypeScript sin que te lo arreglen |
+| Comando                                | Para qué                                                                              |
+| -------------------------------------- | ------------------------------------------------------------------------------------- |
+| `/sesion empezar` · `/sesion terminar` | Abrir y cerrar una sesión de estudio (repaso, objetivo, actualizar `PROGRESO.md`)     |
+| `/aprende-front <tema>`                | Entender un concepto o un trozo de código del proyecto en 5 minutos                   |
+| `/pista`                               | Siguiente escalón de la escalera de pistas                                            |
+| `/revisa [archivo]`                    | Revisión de código de mentor: funciona, se entiende, respeta la arquitectura          |
+| `/error`                               | Entender un error de la consola, del navegador o de TypeScript sin que te lo arreglen |
 
 ## Comandos
 
@@ -111,4 +111,5 @@ npm run typecheck      # tsc -b
 npm run format         # Prettier
 npm run verify         # format:check + lint + typecheck + test
 ```
+
 (Algunos scripts se crean en la fase 0. Ver `docs/ARQUITECTURA.md` §13.4.)

@@ -10,7 +10,7 @@ Objetivo: que Arturo aprenda a **leer errores**, no solo que este desaparezca.
 
 ## Pasos
 
-1. Si no ha pegado el error completo, pídeselo: el mensaje **y** la primera línea del *stack* que apunte a `src/`.
+1. Si no ha pegado el error completo, pídeselo: el mensaje **y** la primera línea del _stack_ que apunte a `src/`.
 2. **Tradúcelo en una frase**, sin jerga: "TypeScript dice que `exercise` puede ser `undefined` y lo estás usando como si siempre existiera".
 3. **Enséñale dónde mirar:** qué parte del mensaje importa (archivo:línea, el nombre del tipo, el código del error) y qué parte es ruido.
 4. **Pregúntale** qué cree que lo provoca. Espera su respuesta.

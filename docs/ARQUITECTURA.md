@@ -10,28 +10,28 @@
 2. **Cómo se organiza:** tres zonas, y las dependencias van en **un solo sentido**: `app/ → features/ → shared/`.
 3. **Dentro de cada feature:** `ui/` (pinta) → `model/` (estado) → `api/` (habla con el backend).
 4. **Lo que viene de fuera se valida** con zod antes de usarlo: respuestas del API y variables de entorno.
-5. **La calidad la vigilan las máquinas:** tests, linter, límites entre capas y *hooks* de git. No depende de acordarse.
+5. **La calidad la vigilan las máquinas:** tests, linter, límites entre capas y _hooks_ de git. No depende de acordarse.
 
 ---
 
 ## Mapa
 
-| # | Sección | Para cuándo | Lectura |
-|---|---|---|---|
-| 1 | [Stack](#1-stack) | Para saber qué herramientas hay | 2 min |
-| 2 | [Carpetas](#2-carpetas) | Para saber dónde va un archivo nuevo | 3 min |
-| 3 | [Dirección de las dependencias](#3-dirección-de-las-dependencias) | Para saber qué puede importar qué | 2 min |
-| 4 | [Capas de una feature](#4-capas-de-una-feature) | Para escribir una feature nueva | 3 min |
-| 5 | [Viaje de una petición](#5-viaje-de-una-petición) | Para entender qué pasa al pulsar un botón | 3 min |
-| 6 | [Sesión y rutas](#6-sesión-y-rutas) | Para el login o una página nueva | 4 min |
-| 7 | [Errores](#7-errores) | Cuando algo falla | 2 min |
-| 8 | [Dónde vive cada dato](#8-dónde-vive-cada-dato) | Para saber dónde guardar un dato | 2 min |
-| 9 | [Calidad](#9-calidad) | Para tests, lint y CI | 3 min |
-| 10 | [Build y despliegue](#10-build-y-despliegue) | Para subirlo a algún sitio | 2 min |
-| 11 | [Convenciones](#11-convenciones) | Siempre | 2 min |
-| 12 | [Plantillas de código](#12-plantillas-de-código) | Para copiar una base y adaptarla | — |
-| 13 | [Configuración](#13-configuración) | Para montar el proyecto | — |
-| 14 | [Glosario backend → frontend](#14-glosario-backend--frontend) | Para traducir conceptos del backend | 1 min |
+| #   | Sección                                                           | Para cuándo                               | Lectura |
+| --- | ----------------------------------------------------------------- | ----------------------------------------- | ------- |
+| 1   | [Stack](#1-stack)                                                 | Para saber qué herramientas hay           | 2 min   |
+| 2   | [Carpetas](#2-carpetas)                                           | Para saber dónde va un archivo nuevo      | 3 min   |
+| 3   | [Dirección de las dependencias](#3-dirección-de-las-dependencias) | Para saber qué puede importar qué         | 2 min   |
+| 4   | [Capas de una feature](#4-capas-de-una-feature)                   | Para escribir una feature nueva           | 3 min   |
+| 5   | [Viaje de una petición](#5-viaje-de-una-petición)                 | Para entender qué pasa al pulsar un botón | 3 min   |
+| 6   | [Sesión y rutas](#6-sesión-y-rutas)                               | Para el login o una página nueva          | 4 min   |
+| 7   | [Errores](#7-errores)                                             | Cuando algo falla                         | 2 min   |
+| 8   | [Dónde vive cada dato](#8-dónde-vive-cada-dato)                   | Para saber dónde guardar un dato          | 2 min   |
+| 9   | [Calidad](#9-calidad)                                             | Para tests, lint y CI                     | 3 min   |
+| 10  | [Build y despliegue](#10-build-y-despliegue)                      | Para subirlo a algún sitio                | 2 min   |
+| 11  | [Convenciones](#11-convenciones)                                  | Siempre                                   | 2 min   |
+| 12  | [Plantillas de código](#12-plantillas-de-código)                  | Para copiar una base y adaptarla          | —       |
+| 13  | [Configuración](#13-configuración)                                | Para montar el proyecto                   | —       |
+| 14  | [Glosario backend → frontend](#14-glosario-backend--frontend)     | Para traducir conceptos del backend       | 1 min   |
 
 ---
 
@@ -39,20 +39,20 @@
 
 **En una frase:** React para la interfaz, Vite para desarrollar y construir, Zustand para el estado y zod para validar.
 
-| Pieza | Herramienta | Para qué |
-|---|---|---|
-| Interfaz | **React 19** + **TypeScript 6** (`strict`) | Componentes con tipos |
-| Desarrollo y build | **Vite 8** (+ React Compiler) | Servidor con recarga en caliente y build optimizado |
-| Rutas | **react-router-dom 7** | Navegar sin recargar la página |
-| Estado | **Zustand 5** | Un *store* por feature |
-| Validación | **zod 4** | Comprobar en ejecución lo que llega de fuera |
-| Estilos | **Tailwind CSS 4** | Clases de utilidad |
-| Componentes base | **shadcn/ui** (sobre Radix) | Botones, diálogos, tablas… accesibles y **copiados dentro del repo** |
-| Iconos | lucide-react | |
-| Textos | i18next + react-i18next | Ningún texto escrito directamente en los componentes |
-| Avisos | sonner | *Toasts* |
-| Tests | **Vitest**, Testing Library, MSW, Playwright | Unitarios, componentes, API simulada, E2E |
-| Calidad | ESLint, Prettier, eslint-plugin-boundaries, Husky, lint-staged, commitlint | Que el código no se degrade |
+| Pieza              | Herramienta                                                                | Para qué                                                             |
+| ------------------ | -------------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| Interfaz           | **React 19** + **TypeScript 6** (`strict`)                                 | Componentes con tipos                                                |
+| Desarrollo y build | **Vite 8** (+ React Compiler)                                              | Servidor con recarga en caliente y build optimizado                  |
+| Rutas              | **react-router-dom 7**                                                     | Navegar sin recargar la página                                       |
+| Estado             | **Zustand 5**                                                              | Un _store_ por feature                                               |
+| Validación         | **zod 4**                                                                  | Comprobar en ejecución lo que llega de fuera                         |
+| Estilos            | **Tailwind CSS 4**                                                         | Clases de utilidad                                                   |
+| Componentes base   | **shadcn/ui** (sobre Radix)                                                | Botones, diálogos, tablas… accesibles y **copiados dentro del repo** |
+| Iconos             | lucide-react                                                               |                                                                      |
+| Textos             | i18next + react-i18next                                                    | Ningún texto escrito directamente en los componentes                 |
+| Avisos             | sonner                                                                     | _Toasts_                                                             |
+| Tests              | **Vitest**, Testing Library, MSW, Playwright                               | Unitarios, componentes, API simulada, E2E                            |
+| Calidad            | ESLint, Prettier, eslint-plugin-boundaries, Husky, lint-staged, commitlint | Que el código no se degrade                                          |
 
 ---
 
@@ -132,11 +132,11 @@ features/  ◄──┐  una feature puede usar otra, pero solo a través de su 
  shared/
 ```
 
-| Desde | ✅ Puede importar | ❌ No puede importar |
-|---|---|---|
-| `app/` | todo | — |
+| Desde         | ✅ Puede importar                | ❌ No puede importar                      |
+| ------------- | -------------------------------- | ----------------------------------------- |
+| `app/`        | todo                             | —                                         |
 | `features/x/` | `shared/`, `features/y/index.ts` | `app/`, archivos internos de otra feature |
-| `shared/` | `shared/` | `app/`, `features/` |
+| `shared/`     | `shared/`                        | `app/`, `features/`                       |
 
 **¿Por qué?** Si `shared` importa de `features`, aparecen dependencias circulares, cuesta testear y un cambio en una feature puede romper algo genérico. Con flechas en un solo sentido, cada pieza se entiende por separado.
 
@@ -155,13 +155,13 @@ ui/ExercisesPage.tsx  ──►  model/exercises.store.ts  ──►  api/exerci
      PINTA                   ESTADO + ERRORES               LLAMADA + VALIDACIÓN            TOKEN + 401
 ```
 
-| Capa | Hace | ❌ No hace |
-|---|---|---|
-| `ui/` (componentes) | Lee del store, pinta y llama a acciones | `fetch`, lógica de negocio |
-| `model/` (store y lógica) | Guarda estado, llama a services, enseña errores y *toasts* | Pintar, `fetch` directo |
-| `model/*.ts` puros | Validaciones y transformaciones (+ tests) | Usar React |
-| `api/` (service) | Llama a `api()` y **valida con zod** lo que vuelve | Usar React, guardar estado |
-| `api/*.schemas.ts` | Esquemas zod → de ahí salen los tipos (`z.infer`) | — |
+| Capa                      | Hace                                                       | ❌ No hace                 |
+| ------------------------- | ---------------------------------------------------------- | -------------------------- |
+| `ui/` (componentes)       | Lee del store, pinta y llama a acciones                    | `fetch`, lógica de negocio |
+| `model/` (store y lógica) | Guarda estado, llama a services, enseña errores y _toasts_ | Pintar, `fetch` directo    |
+| `model/*.ts` puros        | Validaciones y transformaciones (+ tests)                  | Usar React                 |
+| `api/` (service)          | Llama a `api()` y **valida con zod** lo que vuelve         | Usar React, guardar estado |
+| `api/*.schemas.ts`        | Esquemas zod → de ahí salen los tipos (`z.infer`)          | —                          |
 
 ✅ **Regla de oro:** si algo se puede testear sin navegador, va en un `.ts` puro, fuera del componente.
 
@@ -197,9 +197,11 @@ request.ts: fetch(...)  ──►  backend
 ```
 
 **Formato de errores del backend** (siempre igual):
+
 ```json
 { "code": "invalid_credentials", "message": "Texto para los logs" }
 ```
+
 El frontend **traduce el `code`**; no enseña el `message` a la persona usuaria.
 
 ---
@@ -210,10 +212,10 @@ El frontend **traduce el `code`**; no enseña el `message` a la persona usuaria.
 
 ### 6.1 Tokens
 
-| Token | Dónde vive | Por qué |
-|---|---|---|
-| **Access token** (vida corta) | **En memoria** (store de Zustand) | Si hubiera XSS, no está en `localStorage` |
-| **Refresh token** (vida larga) | **Cookie `httpOnly`** del backend | El JavaScript no puede leerla |
+| Token                          | Dónde vive                        | Por qué                                   |
+| ------------------------------ | --------------------------------- | ----------------------------------------- |
+| **Access token** (vida corta)  | **En memoria** (store de Zustand) | Si hubiera XSS, no está en `localStorage` |
+| **Refresh token** (vida larga) | **Cookie `httpOnly`** del backend | El JavaScript no puede leerla             |
 
 - **Al arrancar**, `restoreSession()` llama a `POST /auth/refresh`; la cookie va sola. Si hay sesión, no vuelve a pedir login.
 - **Si llega un 401**, `renewAccessToken()` renueva el token. Si fallan 5 peticiones a la vez, **solo se hace una renovación** (`renewalInFlight`).
@@ -221,26 +223,33 @@ El frontend **traduce el `code`**; no enseña el `message` a la persona usuaria.
 ### 6.2 Máquina de estados
 
 Versión mínima:
+
 ```
 signed_out ──login──► signed_in
      ▲                    │
      └──────logout────────┘
 ```
+
 Versión ampliada (cuando quieras practicar):
+
 ```
 signed_out ─► verify_email ─► enroll_totp ─► signed_in
      │                                           ▲
      └──────────► enter_totp ────────────────────┘
 ```
+
 El **backend** dice cuál es el siguiente paso en cada respuesta. El frontend solo lo aplica.
 
 ### 6.3 Tabla de páginas
 
 Todas las páginas se declaran en **un solo sitio** (`app/router/routes.ts`):
+
 ```ts
 { path: "/exercises", titleKey: "exercises:title", component: ExercisesPage, steps: ["signed_in"], usesAppLayout: true }
 ```
+
 `router.tsx` recorre la tabla y envuelve cada página en `<RequireStep>`, que:
+
 - Mientras se restaura la sesión, no pinta nada.
 - Si el `step` no está en `steps`, redirige a la página de ese paso.
 - Si todo está bien, pinta la página.
@@ -253,16 +262,17 @@ Las páginas se cargan con `lazy()`: cada una se descarga solo cuando alguien la
 
 **En una frase:** todo error del API es un `ApiError`, `showError()` lo convierte en un texto traducido y el `ErrorBoundary` evita la pantalla en blanco.
 
-| Tipo de fallo | Quién lo coge | Qué ve la persona usuaria |
-|---|---|---|
-| El API responde con error | `request.ts` → `ApiError` → store → `showError()` | *Toast* con un texto traducido |
-| Sin conexión (`TypeError`) | `showError()` | "Sin conexión" |
-| Sesión caducada (`unauthenticated`) | `client.ts` → `endSession()` | Vuelve al login |
-| Datos con forma inesperada | zod en el service | *Toast* genérico + error en consola |
-| Fallo al pintar | `ErrorBoundary` | Pantalla "Algo ha ido mal" + Reintentar |
-| Ruta que no existe | Ruta `*` | Página 404 |
+| Tipo de fallo                       | Quién lo coge                                     | Qué ve la persona usuaria               |
+| ----------------------------------- | ------------------------------------------------- | --------------------------------------- |
+| El API responde con error           | `request.ts` → `ApiError` → store → `showError()` | _Toast_ con un texto traducido          |
+| Sin conexión (`TypeError`)          | `showError()`                                     | "Sin conexión"                          |
+| Sesión caducada (`unauthenticated`) | `client.ts` → `endSession()`                      | Vuelve al login                         |
+| Datos con forma inesperada          | zod en el service                                 | _Toast_ genérico + error en consola     |
+| Fallo al pintar                     | `ErrorBoundary`                                   | Pantalla "Algo ha ido mal" + Reintentar |
+| Ruta que no existe                  | Ruta `*`                                          | Página 404                              |
 
 **Orden en el que `showError` elige el mensaje:**
+
 1. Lo que pide esa pantalla concreta (`overrides`, por ejemplo `invalid_credentials`).
 2. Los códigos comunes (`unauthenticated`…).
 3. El status HTTP (403, 429).
@@ -274,14 +284,14 @@ Las páginas se cargan con `lazy()`: cada una se descarga solo cuando alguien la
 
 **En una frase:** cada dato tiene un sitio, según quién lo necesita y cuánto tiene que durar.
 
-| Dato | Dónde | Ejemplo |
-|---|---|---|
-| Estado de un solo componente | `useState` | Si un diálogo está abierto o el texto de un input |
-| Datos que comparten varias pantallas | Store de Zustand de la feature | Resultados de búsqueda |
-| Sesión | `useAuthStore` (memoria) | `step`, `user`, `accessToken` |
-| Preferencias de la persona usuaria | `localStorage` (siempre con `try/catch`) | Tema claro u oscuro |
-| Datos del negocio | **El backend** | Todo lo demás |
-| Lo que hay en la URL | Parámetros de la ruta | `/exercises/:exerciseId` |
+| Dato                                 | Dónde                                    | Ejemplo                                           |
+| ------------------------------------ | ---------------------------------------- | ------------------------------------------------- |
+| Estado de un solo componente         | `useState`                               | Si un diálogo está abierto o el texto de un input |
+| Datos que comparten varias pantallas | Store de Zustand de la feature           | Resultados de búsqueda                            |
+| Sesión                               | `useAuthStore` (memoria)                 | `step`, `user`, `accessToken`                     |
+| Preferencias de la persona usuaria   | `localStorage` (siempre con `try/catch`) | Tema claro u oscuro                               |
+| Datos del negocio                    | **El backend**                           | Todo lo demás                                     |
+| Lo que hay en la URL                 | Parámetros de la ruta                    | `/exercises/:exerciseId`                          |
 
 ❌ **Nunca** guardes el access token en `localStorage`.
 
@@ -299,24 +309,24 @@ Las páginas se cargan con `lazy()`: cada una se descarga solo cuando alguien la
      ▲▲▲▲▲▲▲  Unitarios (Vitest)          muchos: lógica pura, services, stores
 ```
 
-| Qué | Cómo | Ejemplo |
-|---|---|---|
-| Funciones puras | Vitest | `exercise-form.test.ts` |
-| Services | Vitest + `stubFetch` o MSW | Comprobar URL, método y body; que zod rechaza datos malos |
-| Stores | Vitest + `vi.mock` del service | "Una búsqueda antigua no pisa a la nueva" |
-| Componentes | Testing Library + MSW | Contraseña mal → aparece el error |
-| Flujos completos | Playwright | Login → crear ejercicio → aparece en la lista |
+| Qué              | Cómo                           | Ejemplo                                                   |
+| ---------------- | ------------------------------ | --------------------------------------------------------- |
+| Funciones puras  | Vitest                         | `exercise-form.test.ts`                                   |
+| Services         | Vitest + `stubFetch` o MSW     | Comprobar URL, método y body; que zod rechaza datos malos |
+| Stores           | Vitest + `vi.mock` del service | "Una búsqueda antigua no pisa a la nueva"                 |
+| Componentes      | Testing Library + MSW          | Contraseña mal → aparece el error                         |
+| Flujos completos | Playwright                     | Login → crear ejercicio → aparece en la lista             |
 
 Cobertura mínima: **80 %** en `features/` y `shared/lib/`.
 
 ### 9.2 Automático
 
-| Cuándo | Qué se ejecuta |
-|---|---|
-| Al guardar (editor) | Prettier |
-| Al hacer commit (`pre-commit`) | lint-staged: Prettier + ESLint sobre lo que va en el commit |
-| Al escribir el mensaje (`commit-msg`) | commitlint (Conventional Commits) |
-| En cada push (CI) | `npm audit` → `npm run verify` → `npm run build` → E2E |
+| Cuándo                                | Qué se ejecuta                                              |
+| ------------------------------------- | ----------------------------------------------------------- |
+| Al guardar (editor)                   | Prettier                                                    |
+| Al hacer commit (`pre-commit`)        | lint-staged: Prettier + ESLint sobre lo que va en el commit |
+| Al escribir el mensaje (`commit-msg`) | commitlint (Conventional Commits)                           |
+| En cada push (CI)                     | `npm audit` → `npm run verify` → `npm run build` → E2E      |
 
 ### 9.3 Decisiones escritas (ADR)
 
@@ -324,6 +334,7 @@ Cada decisión importante se apunta en `docs/adr/NNNN-titulo.md` con 4 apartados
 **Contexto · Decisión · Alternativas · Consecuencias.**
 
 Primeros ADR recomendados:
+
 - `0001-zustand-para-el-estado.md`
 - `0002-tokens-en-memoria-y-cookie.md`
 - `0003-limites-entre-capas.md`
@@ -431,7 +442,9 @@ export function withBearer(init: RequestInit, token: string | null): RequestInit
 }
 
 function isApiErrorBody(body: unknown): body is ApiErrorBody {
-  return typeof body === "object" && body !== null && "code" in body && typeof body.code === "string";
+  return (
+    typeof body === "object" && body !== null && "code" in body && typeof body.code === "string"
+  );
 }
 
 export async function request(path: string, init: RequestInit = {}): Promise<unknown> {
@@ -617,11 +630,18 @@ import { z } from "zod";
 import { request, withBearer } from "@/shared/api/request";
 
 const TokenSchema = z.object({ accessToken: z.string() });
-export const CurrentUserSchema = z.object({ id: z.string(), email: z.string(), fullName: z.string() });
+export const CurrentUserSchema = z.object({
+  id: z.string(),
+  email: z.string(),
+  fullName: z.string(),
+});
 export type CurrentUser = z.infer<typeof CurrentUserSchema>;
 
 export async function login(email: string, password: string): Promise<string> {
-  const body = await request("/auth/login", { method: "POST", body: JSON.stringify({ email, password }) });
+  const body = await request("/auth/login", {
+    method: "POST",
+    body: JSON.stringify({ email, password }),
+  });
   return TokenSchema.parse(body).accessToken;
 }
 
@@ -711,7 +731,9 @@ export const useAuthStore = create<AuthState>()((set) => {
         await startSession(await authService.login(email.trim(), password));
         return true;
       } catch (error) {
-        showError(error, "auth:errors.login", { invalid_credentials: "auth:errors.invalidCredentials" });
+        showError(error, "auth:errors.login", {
+          invalid_credentials: "auth:errors.invalidCredentials",
+        });
         return false;
       }
     },
@@ -807,6 +829,7 @@ export const PAGES: Page[] = [
   },
 ];
 ```
+
 (Con `lazy()`, cada página se exporta con `export default`. Importar una página interna de una feature desde `app/router/` es la **única excepción** permitida a la regla del `index.ts`; configúrala así en el linter.)
 
 ```tsx
@@ -916,7 +939,11 @@ export function errorMessageKey(
   );
 }
 
-export function showError(error: unknown, fallbackKey: string, overrides?: Record<string, string>): void {
+export function showError(
+  error: unknown,
+  fallbackKey: string,
+  overrides?: Record<string, string>,
+): void {
   toast.error(i18n.t(errorMessageKey(error, fallbackKey, overrides)));
 }
 ```
@@ -946,7 +973,9 @@ export function stubFetch(responses: Array<{ status: number; body?: unknown }>):
       body: init.body ? JSON.parse(String(init.body)) : undefined,
     });
     const next = responses.shift() ?? { status: 200, body: {} };
-    return new Response(next.status === 204 ? null : JSON.stringify(next.body ?? {}), { status: next.status });
+    return new Response(next.status === 204 ? null : JSON.stringify(next.body ?? {}), {
+      status: next.status,
+    });
   };
   vi.stubGlobal("fetch", fakeFetch);
   return recorded;
@@ -980,7 +1009,7 @@ test("una búsqueda antigua que responde la última no pisa a la nueva", async (
 });
 ```
 
-**MSW** (cuando toque): los *handlers* van en `src/test/msw/handlers.ts`, uno por endpoint. En `src/test/setup.ts` se arranca el servidor antes de los tests, se resetean los *handlers* después de cada test y se cierra al final. Mira la documentación oficial de MSW de tu versión, porque su API cambia entre versiones mayores.
+**MSW** (cuando toque): los _handlers_ van en `src/test/msw/handlers.ts`, uno por endpoint. En `src/test/setup.ts` se arranca el servidor antes de los tests, se resetean los _handlers_ después de cada test y se cierra al final. Mira la documentación oficial de MSW de tu versión, porque su API cambia entre versiones mayores.
 
 ### 12.11 Dockerfile y nginx
 
@@ -1071,12 +1100,14 @@ export default defineConfig({
 ### 13.3 TypeScript
 
 En **`tsconfig.json` y `tsconfig.app.json`**:
+
 ```json
 "compilerOptions": {
   "baseUrl": ".",
   "paths": { "@/*": ["./src/*"] }
 }
 ```
+
 En `tsconfig.app.json`, además: `"strict": true` y `"noUncheckedIndexedAccess": true`.
 
 ### 13.4 Scripts de `package.json`
@@ -1102,9 +1133,18 @@ En `tsconfig.app.json`, además: `"strict": true` y `"noUncheckedIndexedAccess":
 ### 13.5 Prettier
 
 `.prettierrc`:
+
 ```json
-{ "semi": true, "singleQuote": false, "trailingComma": "all", "printWidth": 100, "tabWidth": 2, "arrowParens": "always" }
+{
+  "semi": true,
+  "singleQuote": false,
+  "trailingComma": "all",
+  "printWidth": 100,
+  "tabWidth": 2,
+  "arrowParens": "always"
+}
 ```
+
 Añade `eslint-config-prettier` al final de `eslint.config.js`.
 
 ### 13.6 Otras piezas
@@ -1122,19 +1162,19 @@ Añade `eslint-config-prettier` al final de `eslint.config.js`.
 
 ## 14. Glosario backend → frontend
 
-| Backend | Frontend (aquí) |
-|---|---|
-| Repository / cliente HTTP | `api/*.service.ts` |
-| Validar DTOs | `api/*.schemas.ts` (zod) |
-| Capa de servicio o aplicación | `model/*.store.ts` (Zustand) |
-| Controlador + vista | `ui/*Page.tsx` |
-| Tabla de rutas | `PAGES` en `app/router/routes.ts` |
-| Middleware de autenticación | `RequireStep` + `api()` |
-| Filtro global de errores | el `catch` de `api()` + `showError()` + `ErrorBoundary` |
-| Inyección de dependencias | `auth-bridge` + `app/bootstrap.ts` |
-| Módulo con API pública | `features/x/index.ts` + `eslint-plugin-boundaries` |
-| Configuración por entorno | `VITE_*`, que se meten en el **build** |
-| Sesión en el servidor | `useAuthStore` en memoria + cookie de refresh |
-| Tests con mocks | Vitest + `vi.mock` / `stubFetch` |
-| Tests de integración con base de datos falsa | MSW (API falsa en la red) |
-| Ficheros de mensajes | `locales/es/*.json` |
+| Backend                                      | Frontend (aquí)                                         |
+| -------------------------------------------- | ------------------------------------------------------- |
+| Repository / cliente HTTP                    | `api/*.service.ts`                                      |
+| Validar DTOs                                 | `api/*.schemas.ts` (zod)                                |
+| Capa de servicio o aplicación                | `model/*.store.ts` (Zustand)                            |
+| Controlador + vista                          | `ui/*Page.tsx`                                          |
+| Tabla de rutas                               | `PAGES` en `app/router/routes.ts`                       |
+| Middleware de autenticación                  | `RequireStep` + `api()`                                 |
+| Filtro global de errores                     | el `catch` de `api()` + `showError()` + `ErrorBoundary` |
+| Inyección de dependencias                    | `auth-bridge` + `app/bootstrap.ts`                      |
+| Módulo con API pública                       | `features/x/index.ts` + `eslint-plugin-boundaries`      |
+| Configuración por entorno                    | `VITE_*`, que se meten en el **build**                  |
+| Sesión en el servidor                        | `useAuthStore` en memoria + cookie de refresh           |
+| Tests con mocks                              | Vitest + `vi.mock` / `stubFetch`                        |
+| Tests de integración con base de datos falsa | MSW (API falsa en la red)                               |
+| Ficheros de mensajes                         | `locales/es/*.json`                                     |

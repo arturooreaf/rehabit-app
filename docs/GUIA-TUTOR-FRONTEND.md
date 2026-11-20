@@ -44,7 +44,7 @@ Si la sesión se alarga, **para y propón un descanso**. Es mejor una sesión co
 
 ### 3.3 Mantener el foco
 
-- **Aparcamiento de ideas:** si Arturo pregunta algo interesante pero que no toca ahora, apúntalo en `PROGRESO.md` → "Aparcado" y vuelve al objetivo: *"¡Buena pregunta! La aparco para la fase 7. Seguimos con…"*.
+- **Aparcamiento de ideas:** si Arturo pregunta algo interesante pero que no toca ahora, apúntalo en `PROGRESO.md` → "Aparcado" y vuelve al objetivo: _"¡Buena pregunta! La aparco para la fase 7. Seguimos con…"_.
 - Si se dispersa, **recuérdale en una línea en qué paso estáis**, sin juzgar.
 - **Tareas muy pequeñas y con final claro.** No "haz el formulario", sino "añade el input del email y que se vea lo que escribes debajo".
 - **Celebra cada avance**, aunque sea pequeño. La sensación de progreso mantiene la motivación.
@@ -58,22 +58,28 @@ Mantén **`docs/PROGRESO.md`** con esta forma:
 # Progreso
 
 ## Ahora mismo
+
 Fase: 2 — Fundamentos de React
 Siguiente paso: pintar la lista de ejercicios con .map y key
 
 ## Fases
-☑ 0 Entorno  ☑ 1 TypeScript  ☐ 2 React  ☐ 3 Estilos …
+
+☑ 0 Entorno ☑ 1 TypeScript ☐ 2 React ☐ 3 Estilos …
 
 ## Ya domino
+
 - useState, eventos onClick/onChange
 
 ## Dudas pendientes
+
 - No me queda claro cuándo se ejecuta useEffect
 
 ## Para repasar
+
 - Diferencia entre props y estado
 
 ## Aparcado (para más adelante)
+
 - ¿Qué es el Virtual DOM? → fase 2, al final
 ```
 
@@ -113,6 +119,7 @@ Revisa el código antes de la primera sesión; puede haber cambiado. La última 
 - **Dos roles**, opcional, para practicar el control de acceso.
 
 **Backend:** Arturo es de backend, así que puede escribir él una API pequeña. Mientras tanto, se puede avanzar con datos falsos en el frontend. Convenciones de la API:
+
 - Siempre JSON.
 - Los errores como `{ "code": "snake_case", "message": "..." }` con su status HTTP.
 - Access token como Bearer (vida corta) y refresh token en una cookie `httpOnly`.
@@ -122,6 +129,7 @@ Revisa el código antes de la primera sesión; puede haber cambiado. La última 
 Cada fase tiene: 🎯 objetivo · 📚 conceptos · ✍️ ejercicio · ⭐ extra profesional · 📖 dónde leer · ✅ hecho cuando.
 
 ### Fase 0: Preparar el entorno
+
 - 🎯 Tener el proyecto limpio y configurado.
 - 📚 Qué es una SPA, qué hace el navegador con `index.html`, qué es un bundler (Vite) y la recarga en caliente.
 - ✍️ Quitar los restos de la plantilla. Instalar las dependencias **básicas**. Configurar alias `@`, `strict`, Tailwind, Prettier y Vitest (`ARQUITECTURA.md` §13). Ver una página propia con `npm run dev`.
@@ -129,13 +137,15 @@ Cada fase tiene: 🎯 objetivo · 📚 conceptos · ✍️ ejercicio · ⭐ extr
 - ✅ Sabe explicar qué pasa desde que abre `localhost:5173` hasta que ve la página, y `npm run verify` funciona.
 
 ### Fase 1: El TypeScript necesario
+
 - 🎯 Escribir funciones puras con tipos y tests.
-- 📚 `const`/`let`, funciones flecha, desestructuración, *spread*, `import`/`export`, `Promise` y `async/await`, `fetch`, `interface`/`type`, uniones de strings.
+- 📚 `const`/`let`, funciones flecha, desestructuración, _spread_, `import`/`export`, `Promise` y `async/await`, `fetch`, `interface`/`type`, uniones de strings.
 - ✍️ Funciones en `src/shared/lib/` (por ejemplo `initials(fullName)`), cada una con su `.test.ts`.
 - 📖 typescriptlang.org/docs/handbook · vitest.dev
 - ✅ Escribe una función pura con su test sin ayuda.
 
 ### Fase 2: Fundamentos de React
+
 - 🎯 Pintar datos y reaccionar a lo que hace la persona usuaria.
 - 📚 Componente = función que devuelve JSX. Props, `useState`, eventos, listas con `key`, renderizado condicional, qué provoca un re-render. Después, `useEffect`: para qué sí y para qué **no**.
 - ✍️ Terminar su `LoginPage.tsx` (inputs controlados, `onSubmit`, `preventDefault`). Una lista falsa de ejercicios con buscador y botón de añadir.
@@ -143,13 +153,15 @@ Cada fase tiene: 🎯 objetivo · 📚 conceptos · ✍️ ejercicio · ⭐ extr
 - ✅ Explica qué provoca un re-render y por qué no se cambia el estado directamente.
 
 ### Fase 3: Estilos con Tailwind y shadcn/ui
+
 - 🎯 Maquetar pantallas que se vean bien.
-- 📚 Clases de utilidad, flex y grid, *responsive* (`md:`), variables CSS de color, modo oscuro. shadcn = componentes **copiados dentro del repo**, no una librería instalada.
+- 📚 Clases de utilidad, flex y grid, _responsive_ (`md:`), variables CSS de color, modo oscuro. shadcn = componentes **copiados dentro del repo**, no una librería instalada.
 - ✍️ Maquetar la lista con `Table`, `Input` y `Button`, y un diálogo de alta con `Dialog`.
 - 📖 tailwindcss.com/docs · ui.shadcn.com
 - ✅ Maqueta una pantalla sencilla sin copiar clases a ciegas.
 
 ### Fase 4: Formularios y validación
+
 - 🎯 Formularios con errores por campo y lógica testeable.
 - 📚 Inputs controlados, validación en **funciones puras** (`-form.ts`) separada del componente, errores por campo.
 - ✍️ Formulario de alta con la validación en `exercise-form.ts` y su test.
@@ -157,14 +169,16 @@ Cada fase tiene: 🎯 objetivo · 📚 conceptos · ✍️ ejercicio · ⭐ extr
 - ✅ La validación tiene tests y el componente solo la llama.
 
 ### Fase 5: Rutas
+
 - 🎯 Varias páginas sin recargar el navegador.
 - 📚 Rutas en el cliente, `react-router-dom`, parámetros (`/exercises/:exerciseId`), `Navigate`, layouts. Patrón: **tabla `PAGES`** con todas las páginas (`ARQUITECTURA.md` §6.3).
 - ✍️ `routes.ts` (la tabla) + un router generado con un bucle `for` + `AppLayout` con menú.
-- ⭐ Página 404 y páginas con `lazy()` + `Suspense`. Que mire en la pestaña *Network* cómo cada página se descarga por separado.
+- ⭐ Página 404 y páginas con `lazy()` + `Suspense`. Que mire en la pestaña _Network_ cómo cada página se descarga por separado.
 - 📖 reactrouter.com
 - ✅ Añade una página nueva tocando solo la tabla.
 
 ### Fase 6: Hablar con el API
+
 - 🎯 Que los datos salgan del backend real.
 - 📚 `fetch`, `credentials: "include"`, CORS (visto desde el backend, que ya lo conoce), proxy de Vite, `ApiError`, `VITE_*` + `import.meta.env` (se meten en el JS **al hacer el build**).
 - ✍️ `errors.ts`, `request.ts` y `client.ts` (versión simple) y `exercises.service.ts` (`ARQUITECTURA.md` §12.2, 12.3 y 12.5).
@@ -173,6 +187,7 @@ Cada fase tiene: 🎯 objetivo · 📚 conceptos · ✍️ ejercicio · ⭐ extr
 - ✅ La lista sale del API y los errores llegan como `ApiError`.
 
 ### Fase 7: Estado global con Zustand
+
 - 🎯 Compartir datos entre pantallas.
 - 📚 Por qué no basta `useState`, `create()`, selectores, acciones asíncronas, `getState()`. Patrón **ui → model → api** (§4).
 - ✍️ `exercises.store.ts` (§12.6), incluida la protección contra la carrera de búsquedas.
@@ -180,6 +195,7 @@ Cada fase tiene: 🎯 objetivo · 📚 conceptos · ✍️ ejercicio · ⭐ extr
 - ✅ Explica por qué una búsqueda antigua puede pisar a una nueva y cómo lo evita el store.
 
 ### Fase 8: Autenticación ⭐ la más importante
+
 - 🎯 Login real, sesión que sobrevive a recargar y rutas protegidas.
 - 📚 Access token en memoria vs refresh token en cookie `httpOnly` (por qué: XSS). `restoreSession()` al arrancar. Si llega un 401: renovar **una sola vez** y repetir. La sesión como máquina de estados. `RequireStep` (§6).
 - ✍️ Uno a uno:
@@ -191,38 +207,44 @@ Cada fase tiene: 🎯 objetivo · 📚 conceptos · ✍️ ejercicio · ⭐ extr
 - ✅ Recarga y sigue con la sesión iniciada; una URL protegida sin sesión le manda a `/login`.
 
 ### Fase 9: Errores, avisos e i18n
+
 - 🎯 Que la app explique bien qué ha pasado.
-- 📚 `showError()` traduce `code` → mensaje (§7). *Toasts* con sonner. Textos en JSON por *namespace* con i18next.
-- ✍️ Pasar todos los textos a `locales/es/*.json` y los errores del API a *toasts* (§12.9).
+- 📚 `showError()` traduce `code` → mensaje (§7). _Toasts_ con sonner. Textos en JSON por _namespace_ con i18next.
+- ✍️ Pasar todos los textos a `locales/es/*.json` y los errores del API a _toasts_ (§12.9).
 - ⭐ `ErrorBoundary` con "Algo ha ido mal" + Reintentar. Probarlo lanzando un error a propósito.
 - 📖 react.i18next.com
 - ✅ No queda ningún texto visible escrito directamente en un `.tsx`.
 
 ### Fase 10: Tests
+
 - 🎯 Confiar en que lo que funciona sigue funcionando.
 - 📚 Vitest (`describe`/`test`/`expect`), test al lado del archivo, `stubFetch`, `vi.mock` de un service. Qué testear: lógica pura, services y stores.
 - ✍️ Tests del service (URL, método, cabeceras, body, zod rechaza datos malos) y del store (éxito, error y carrera) (§12.10).
 - ✅ `npm run verify` en verde.
 
 ### Fase 11: Build y despliegue
+
 - 🎯 Que la app funcione fuera de tu ordenador.
-- 📚 `vite build` (hash, minificado, `base`), `vite preview`, Docker *multi-stage* (Node → nginx), nginx en modo SPA, caché, cabeceras de seguridad (§10).
+- 📚 `vite build` (hash, minificado, `base`), `vite preview`, Docker _multi-stage_ (Node → nginx), nginx en modo SPA, caché, cabeceras de seguridad (§10).
 - ✍️ `Dockerfile` + `nginx.conf` + `.dockerignore` (§12.11) y un CI con verify.
 - ✅ `docker run` sirve la app y recargar en `/exercises/42` no da 404.
 
 ### Fase 12: Tests profesionales
+
 - 🎯 Pirámide de tests completa (§9.1).
 - 📚 Testing Library (buscar por rol y texto, como una persona), MSW (API falsa en la red, que sirve también para desarrollar sin backend), Playwright (E2E), cobertura.
 - ✍️ Cambiar `stubFetch` por MSW, testear `LoginPage` (contraseña mal → error) y un E2E de login.
 - ✅ Un test de cada nivel y la cobertura por encima del umbral.
 
 ### Fase 13: Calidad automatizada
+
 - 🎯 Que la arquitectura no se degrade sola (§9.2).
 - 📚 ESLint `strictTypeChecked`, `eslint-plugin-boundaries`, Husky + lint-staged, Conventional Commits, CI completo y ADRs.
 - ✍️ Configurarlo todo y escribir `docs/adr/0001-zustand-para-el-estado.md`.
 - ✅ Un import prohibido rompe el lint y un commit mal formateado no se deja hacer.
 
 ### Fase 14 (opcional): Comparar con TanStack Query
+
 - 🎯 Conocer la otra forma habitual en la industria.
 - 📚 Estado del servidor (caché, reintentos, invalidación) vs estado del cliente (sesión, filtros).
 - ✍️ En una rama aparte, reescribir **una** feature con `useQuery`/`useMutation`, comparar y dejar las conclusiones en un ADR.
@@ -233,13 +255,13 @@ Cada fase tiene: 🎯 objetivo · 📚 conceptos · ✍️ ejercicio · ⭐ extr
 - **`AGENTS.md`** (en la raíz) tiene las **reglas del proyecto** para cualquier agente: modo mentor, cómo hablarle, arquitectura, stack, requisitos y convenciones. `CLAUDE.md` solo contiene `@AGENTS.md`, para que Claude Code cargue el mismo archivo. Si cambia una regla, se cambia en `AGENTS.md`.
 - **Skills** (`.claude/skills/`): atajos para las situaciones que se repiten. Úsalas y recuérdale a Arturo que existen.
 
-| Skill | Cuándo |
-|---|---|
-| `/sesion empezar` · `/sesion terminar` | Al principio y al final de cada sesión |
-| `/aprende-front <tema>` | No entiende un concepto o un trozo de código |
-| `/pista` | Se ha atascado |
-| `/revisa [archivo]` | Ha terminado algo y quiere que se lo revisen |
-| `/error` | Le sale un error |
+| Skill                                  | Cuándo                                       |
+| -------------------------------------- | -------------------------------------------- |
+| `/sesion empezar` · `/sesion terminar` | Al principio y al final de cada sesión       |
+| `/aprende-front <tema>`                | No entiende un concepto o un trozo de código |
+| `/pista`                               | Se ha atascado                               |
+| `/revisa [archivo]`                    | Ha terminado algo y quiere que se lo revisen |
+| `/error`                               | Le sale un error                             |
 
 Si una skill se queda corta o hace falta otra, créala con Arturo: escribir una skill también es aprender a explicar un proceso.
 
