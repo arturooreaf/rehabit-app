@@ -3,7 +3,7 @@
 ## Ahora mismo
 
 Fase: 2 y 3 — React y estilos: construir la pantalla de login con Tailwind
-Siguiente paso: dar forma al login (estructura, clases de Tailwind, estados del formulario)
+Siguiente paso: dar estilo a los inputs y al botón (Preflight los deja invisibles) y añadir `w-full` al `<form>`
 
 ## Fases
 
@@ -27,14 +27,23 @@ Siguiente paso: dar forma al login (estructura, clases de Tailwind, estados del 
 - `npm test` (una vez) vs `npm run test:watch` (vigila); `npm run verify` lo pasa todo
 - Errores de ESLint: `línea:columna`, gravedad, mensaje y nombre de la regla; silencio = éxito (`echo $?` → 0)
 
+- Login reescrito de cero: `export default` sin `()` (pasar la función, no ejecutarla); `onSubmit={handleSubmit}` sin `()`
+- Evento de envío: `React.SubmitEvent<HTMLFormElement>` (`FormEvent` está tachado = _deprecated_)
+- Historia de una tecla: `e` → `e.target` (el input) → `.value` → `setEmail` → `value={email}`; `value` sin `onChange` bloquea el campo
+- Console (mensajes de `console.log`) vs Network (peticiones a servidores); nunca loguear contraseñas
+- Tailwind: clases = atajos de CSS; una clase mal escrita no da error (mirar el navegador); Preflight borra los estilos del navegador
+- Colocar cajas: `flex`, `flex-col`, `gap-4`, `items-center`, `justify-center`, `min-h-screen`; tarjeta: `max-w-sm p-8 rounded-xl bg-white shadow`
+
 ## Dudas pendientes
 
 - (ninguna apuntada todavía)
 
 ## Aparcado (para más adelante)
 
+- VS Code abierto en `clinica/`: el `.vscode/settings.json` de rehabit-app (format on save) solo funciona abriendo `code ~/Projects/clinica/rehabit-app`
+- Quitar el `console.log(email)` de `handleSubmit` cuando se conecte con la API
 - Primer test con Vitest: `canSubmitLogin(email, password)` en `src/features/auth/login-form.ts` + `login-form.test.ts` (casos normal, límite y raro) → cuando él quiera; ahora `npm test` usa `--passWithNoTests`
-- `fetch` al `POST /auth/login` desde `LoginPage` (se empezó: `async` en `handleSubmit`, sin commit) → fases 6 y 8
+- `fetch` al `POST /auth/login` desde `LoginPage` → fases 6 y 8
 - Capas profesionales: `shared/api/request.ts` (único `fetch`) → service → store → fases 6 a 8
 - El backend (`clinica-api`) responde `{ "error": "..." }` y no tiene refresh token; la guía espera `{ "code", "message" }` + cookie `httpOnly` → decidir en la fase 6
 - Concretar las entidades reales de Rehabit (pacientes, citas, ejercicios...) → primera sesión de la fase 2 o 3
