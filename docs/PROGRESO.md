@@ -2,12 +2,12 @@
 
 ## Ahora mismo
 
-Fase: 0 — Preparar el entorno
-Siguiente paso: explicar qué pasa desde que abro `localhost:5173` hasta que veo la página (SPA, `index.html`, Vite)
+Fase: 2 y 3 — React y estilos: construir la pantalla de login con Tailwind
+Siguiente paso: dar forma al login (estructura, clases de Tailwind, estados del formulario)
 
 ## Fases
 
-☐ 0 Entorno · ☐ 1 TypeScript · ◐ 2 React · ☐ 3 Estilos · ☐ 4 Formularios · ☐ 5 Rutas · ☐ 6 API · ☐ 7 Zustand · ☐ 8 Auth · ☐ 9 Errores e i18n · ☐ 10 Tests · ☐ 11 Build · ☐ 12 Tests pro · ☐ 13 Calidad · ☐ 14 TanStack Query
+✅ 0 Entorno · ☐ 1 TypeScript · ◐ 2 React · ◐ 3 Estilos · ☐ 4 Formularios · ☐ 5 Rutas · ☐ 6 API · ☐ 7 Zustand · ☐ 8 Auth · ☐ 9 Errores e i18n · ☐ 10 Tests · ☐ 11 Build · ☐ 12 Tests pro · ☐ 13 Calidad · ☐ 14 TanStack Query
 
 ◐ = empezada. De la fase 2 ya está hecho el `LoginPage.tsx` con inputs controlados y `onSubmit`.
 
@@ -20,6 +20,12 @@ Siguiente paso: explicar qué pasa desde que abro `localhost:5173` hasta que veo
 - `useState` e inputs controlados (`value` + `onChange`)
 - La consola del navegador (Cmd + Option + J) y `console.log`
 - `.env` del front: `VITE_API_URL`, público, nunca secretos
+- Arranque: `index.html` (`#root`) → `main.tsx` (`createRoot`, `StrictMode`) → `App` → `LoginPage`
+- Alias `@/` = `src/`: se configura en `tsconfig.app.json` (`paths`) **y** en `vite.config.ts` (`resolve.alias`)
+- Prettier (formato) vs ESLint (errores) vs `tsc` (tipos); `eslint-config-prettier` al final del array (el último gana)
+- Scripts de npm: nombre libre, comando exacto; los comandos viven en `node_modules/.bin/`
+- `npm test` (una vez) vs `npm run test:watch` (vigila); `npm run verify` lo pasa todo
+- Errores de ESLint: `línea:columna`, gravedad, mensaje y nombre de la regla; silencio = éxito (`echo $?` → 0)
 
 ## Dudas pendientes
 
@@ -27,12 +33,12 @@ Siguiente paso: explicar qué pasa desde que abro `localhost:5173` hasta que veo
 
 ## Aparcado (para más adelante)
 
+- Primer test con Vitest: `canSubmitLogin(email, password)` en `src/features/auth/login-form.ts` + `login-form.test.ts` (casos normal, límite y raro) → cuando él quiera; ahora `npm test` usa `--passWithNoTests`
 - `fetch` al `POST /auth/login` desde `LoginPage` (se empezó: `async` en `handleSubmit`, sin commit) → fases 6 y 8
 - Capas profesionales: `shared/api/request.ts` (único `fetch`) → service → store → fases 6 a 8
 - El backend (`clinica-api`) responde `{ "error": "..." }` y no tiene refresh token; la guía espera `{ "code", "message" }` + cookie `httpOnly` → decidir en la fase 6
 - Concretar las entidades reales de Rehabit (pacientes, citas, ejercicios...) → primera sesión de la fase 2 o 3
 - TOTP como paso intermedio del login → fase 8 (opcional)
-- Subir `rehabit-app` a GitHub (`git push`) → cuando se quiera
 - Renombrar `clinica-api` → `rehabit-api` → al final
 - Quitar el `package-lock.json` vacío de `~/Projects/clinica/`
 - `clinica-api/.env.example` tiene `RESEND_FROM==` (dos `=`)
