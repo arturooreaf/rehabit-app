@@ -2,12 +2,12 @@
 
 ## Ahora mismo
 
-Fase: 2 y 3 — React y estilos: construir la pantalla de login con Tailwind
-Siguiente paso: dar estilo a los inputs y al botón (Preflight los deja invisibles) y añadir `w-full` al `<form>`
+Fase: 2, 3 y 6 — login con estilo y conectado al backend
+Siguiente paso: quitar el `console.log(loginAuth)` (saca el token) y guardar el token en memoria; después, una segunda pantalla y saltar a ella tras el login (rutas)
 
 ## Fases
 
-✅ 0 Entorno · ☐ 1 TypeScript · ◐ 2 React · ◐ 3 Estilos · ☐ 4 Formularios · ☐ 5 Rutas · ☐ 6 API · ☐ 7 Zustand · ☐ 8 Auth · ☐ 9 Errores e i18n · ☐ 10 Tests · ☐ 11 Build · ☐ 12 Tests pro · ☐ 13 Calidad · ☐ 14 TanStack Query
+✅ 0 Entorno · ☐ 1 TypeScript · ◐ 2 React · ◐ 3 Estilos · ☐ 4 Formularios · ☐ 5 Rutas · ◐ 6 API · ☐ 7 Zustand · ☐ 8 Auth · ☐ 9 Errores e i18n · ☐ 10 Tests · ☐ 11 Build · ☐ 12 Tests pro · ☐ 13 Calidad · ☐ 14 TanStack Query
 
 ◐ = empezada. De la fase 2 ya está hecho el `LoginPage.tsx` con inputs controlados y `onSubmit`.
 
@@ -34,14 +34,25 @@ Siguiente paso: dar estilo a los inputs y al botón (Preflight los deja invisibl
 - Tailwind: clases = atajos de CSS; una clase mal escrita no da error (mirar el navegador); Preflight borra los estilos del navegador
 - Colocar cajas: `flex`, `flex-col`, `gap-4`, `items-center`, `justify-center`, `min-h-screen`; tarjeta: `max-w-sm p-8 rounded-xl bg-white shadow`
 
+- Estilos de inputs y botón: `border rounded-lg px-3 py-2`; `p` = padding, `px` horizontal, `py` vertical, número × 4 = px; `hover:` para el ratón encima
+- Puertos: front 5173, back 3000, Postgres 5433; `VITE_API_URL` (front) y `CORS_ORIGIN` (back); reiniciar `npm run dev` al cambiar un `.env`
+- CORS: preflight `OPTIONS`, cabecera `Access-Control-Allow-Origin`; lo decide el back y lo aplica el navegador
+- `src/shared/config/env.ts` con zod: Vite lee el `.env`, zod lo revisa
+- `auth.service.ts`: `fetch` POST con `method`, `headers` (`Content-Type: application/json`) y `body` (`JSON.stringify`); `response.json()`
+- `async`/`await`; `fetch` no falla con 401: comprobar `response.ok` y lanzar un error
+- `try/catch` en `handleSubmit`; pizarra `errorMessage` y `{errorMessage && <p>...</p>}`; `set...` vuelve a pintar (re-render)
+- El patrón del proyecto real: `Page.tsx` → `.store.ts` → `.service.ts` → `shared/api/request.ts` (único `fetch`)
+
 ## Dudas pendientes
 
-- (ninguna apuntada todavía)
+- `useState` por dentro: qué devuelve y por qué los corchetes `[valor, setValor]` (repasar con calma)
 
 ## Aparcado (para más adelante)
 
+- ¿Un ORM (Prisma o Drizzle) en clinica-api? Ahora usa SQL a mano con `pg` → cuando se quiera
 - VS Code abierto en `clinica/`: el `.vscode/settings.json` de rehabit-app (format on save) solo funciona abriendo `code ~/Projects/clinica/rehabit-app`
-- Quitar el `console.log(email)` de `handleSubmit` cuando se conecte con la API
+- Register: mismo patrón que el login, para hacerlo él solo → después de terminar el login
+- Validar con zod la respuesta del login (`{ token, user }`) → fase 6
 - Primer test con Vitest: `canSubmitLogin(email, password)` en `src/features/auth/login-form.ts` + `login-form.test.ts` (casos normal, límite y raro) → cuando él quiera; ahora `npm test` usa `--passWithNoTests`
 - `fetch` al `POST /auth/login` desde `LoginPage` → fases 6 y 8
 - Capas profesionales: `shared/api/request.ts` (único `fetch`) → service → store → fases 6 a 8
