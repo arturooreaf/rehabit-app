@@ -1,50 +1,66 @@
 import { useState } from "react";
 import { useAuthStore } from "@/features/auth/auth.store";
+import { Button } from "@/shared/components/ui/button";
+import { Input } from "@/shared/components/ui/input";
+import { Label } from "@/shared/components/ui/label";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/shared/components/ui/card";
 function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const login = useAuthStore((state) => state.login);
 
   async function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
+    setIsSubmitting(true);
     const ok = await login(email, password);
+    setIsSubmitting(false);
     if (!ok) {
       setErrorMessage("Incorrect email or password");
     }
   }
   return (
     <main className="flex min-h-screen items-center justify-center bg-slate-100">
-      <form
-        className="flex flex-col gap-4 max-w-sm p-15 w-full rounded-xl  bg-white shadow "
-        onSubmit={handleSubmit}
-      >
-        <h1 className="text-3xl font-bold">Rehabit</h1>
-        <label htmlFor="email">Email</label>
-        <input
-          id="email"
-          type="email"
-          className="border rounded-lg px-3 py-2"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <label htmlFor="password">Password</label>
-        <input
-          type="password"
-          name="password"
-          id="password"
-          className="border rounded-lg px-3 py-2"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button
-          type="submit"
-          className="bg-blue-600 text-white rounded-lg py-3 font-medium hover:bg-blue-700"
-        >
-          Log in
-        </button>
-        {errorMessage && <p className="text-red-600">{errorMessage} </p>}
-      </form>
+      <Card className="w-full max-w-sm">
+        <CardHeader>
+          <CardTitle>Rehabit</CardTitle>
+          <CardDescription>Log in to see your schedule</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+            <Label htmlFor="email">Email</Label>
+            <Input
+              id="email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <Label htmlFor="password">Password</Label>
+            <Input
+              type="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <Button type="submit" disabled={isSubmitting}>
+              {isSubmitting ? "Logging in..." : "Log in"}
+            </Button>
+
+            {errorMessage && (
+              <p role="alert" className="text-sm text-destructive">
+                {errorMessage}
+              </p>
+            )}
+          </form>
+        </CardContent>
+      </Card>
     </main>
   );
 }
