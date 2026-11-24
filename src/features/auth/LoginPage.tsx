@@ -1,15 +1,15 @@
 import { useState } from "react";
-import { login } from "@/features/auth/auth.service";
+import { useAuthStore } from "@/features/auth/auth.store";
 function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const login = useAuthStore((state) => state.login);
+
   async function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
-    try {
-      const loginAuth = await login(email, password);
-      console.log(loginAuth);
-    } catch {
+    const ok = await login(email, password);
+    if (!ok) {
       setErrorMessage("Incorrect email or password");
     }
   }
