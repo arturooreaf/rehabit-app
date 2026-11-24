@@ -151,3 +151,40 @@ Cada pieza **solo habla con su vecina**. El front **nunca** habla con la base de
 | 3306   | MySQL                                   | XAMPP                        |
 | 5432   | PostgreSQL (mi Docker lo saca por 5433) | clinica-db                   |
 | 6379   | Redis (caché)                           | backends grandes             |
+
+## 13. Documentación oficial
+
+La documentación oficial manda: si algo no coincide, mirar aquí.
+
+| Qué                 | Dónde                                   |
+| ------------------- | --------------------------------------- |
+| Web (HTML, CSS, JS) | https://developer.mozilla.org           |
+| React               | https://react.dev                       |
+| Tailwind            | https://tailwindcss.com/docs            |
+| shadcn/ui           | https://ui.shadcn.com/docs/installation |
+| Zustand             | https://zustand.docs.pmnd.rs/           |
+| zod                 | https://zod.dev                         |
+| Vite                | https://vite.dev                        |
+
+## 14. Las capas del front (el patrón profesional)
+
+```
+LoginPage.tsx (ui)        pinta y recoge; llama a login() DEL STORE; si ok → navega
+      ▼
+auth.store.ts (model)     Zustand, en memoria: token, user + login(), logout()
+      ▼                   login(): llama al service → guarda token y user → devuelve true/false
+auth.service.ts (api)     fetch POST /auth/login → revisa con zod → devuelve { token, user }
+      ▼
+clinica-api (backend)     → PostgreSQL
+```
+
+- Cada capa **solo habla con la de abajo**. La página nunca hace `fetch`; el service nunca toca React.
+
+### Pantallas
+
+```
+abres la app → ¿hay token en el store?
+   NO → /login  (AuthLayout + LoginPage) → login correcto → navega a /agenda
+   SÍ → /agenda (AppLayout + AgendaPage)
+/agenda sin token → RequireStep te devuelve a /login
+```
