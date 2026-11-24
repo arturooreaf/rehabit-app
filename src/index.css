@@ -128,3 +128,29 @@
     @apply font-sans;
   }
 }
+
+@theme {
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-drift: drift 18s ease-in-out infinite;
+  --animate-drift-slow: drift 26s ease-in-out infinite reverse;
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-8px);
+    }
+  }
+
+  @keyframes drift {
+    0%,
+    100% {
+      transform: translate(0, 0) scale(1);
+    }
+    50% {
+      transform: translate(40px, 30px) scale(1.15);
+    }
+  }
+}

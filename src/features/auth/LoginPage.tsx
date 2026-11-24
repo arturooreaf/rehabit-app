@@ -24,21 +24,34 @@ function LoginPage() {
   return (
     <AuthLayout>
       <div className="flex w-full max-w-sm flex-col gap-6">
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-1 animate-in fade-in slide-in-from-bottom-4 duration-500 fill-mode-both">
           <h1 className="text-3xl font-bold tracking-tight">Welcome back</h1>
           <p className="text-sm text-muted-foreground">Log in to your clinic</p>
         </div>
         <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
-          <Label htmlFor="email">Email</Label>
-          <Input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-          <Label htmlFor="password">Password</Label>
-          <Input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <Button type="submit" disabled={isSubmitting}>
+          <div className="flex flex-col gap-2 animate-in fade-in slide-in-from-bottom-4 duration-500 fill-mode-both delay-100">
+            <Label htmlFor="email">Email</Label>
+            <Input
+              id="email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+          <div className="flex flex-col gap-2 animate-in fade-in slide-in-from-bottom-4 duration-500 fill-mode-both delay-200">
+            <Label htmlFor="password">Password</Label>
+            <Input
+              type="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+          <Button
+            type="submit"
+            disabled={isSubmitting}
+            className="animate-in fade-in slide-in-from-bottom-4 duration-500 fill-mode-both delay-300"
+          >
             {isSubmitting ? "Logging in..." : "Log in"}
           </Button>
 
