@@ -3,7 +3,16 @@
 ## Ahora mismo
 
 Fase: 2, 3 y 6 — login con estilo y conectado al backend
-Siguiente paso: quitar el `console.log(loginAuth)` (saca el token) y guardar el token en memoria; después, una segunda pantalla y saltar a ella tras el login (rutas)
+Siguiente paso: paso 1 del plan del login profesional (instalar react-router y rutas `/login` y `/register`)
+
+## Plan del login profesional
+
+1. ☐ Instalar react-router y montar las rutas `/login` y `/register`
+2. ☑ `AuthLayout`: marco común con panel de marca a la izquierda y formulario a la derecha (en móvil, solo el formulario)
+3. ☐ Enlaces entre login y registro con `<Link>`
+4. ☐ `RegisterPage` (nombre, email, contraseña → `POST /auth/register`), hecha por él: service → store → página
+5. ☐ Login correcto → `/agenda` (página vacía de momento) y proteger `/agenda`
+6. ☐ Agenda nivel 1: citas del día, cambiar de día, estado vacío y cargando
 
 ## Fases
 
@@ -49,6 +58,12 @@ Siguiente paso: quitar el `console.log(loginAuth)` (saca el token) y guardar el 
 
 ## Aparcado (para más adelante)
 
+- ⭐ Login con Google (OAuth): proyecto en Google Cloud + el back habla con Google y crea o enlaza al usuario + botón en el front → cuando el login normal funcione de principio a fin
+- Inspiración de diseño (KPR, Camille Mormal, Dustin Brett): coger ideas (tipografía grande, animación de entrada suave); para el login, mirar shadcn Blocks y los logins de Linear, Vercel o Stripe
+- anime.js para micro-animaciones (entrada del formulario, error, check al guardar) → cuando `tw-animate-css` se quede corto
+- Mastra (framework de agentes de IA en TypeScript) para la sugerencia de códigos CIE-10 → al final del proyecto
+- clinica-api: `emails` no debería ser un módulo con ruta pública (hoy `/emails` es un relay abierto); el envío de emails pasa a `common/` como servicio interno que usan otros módulos
+- Mejoras del backend que afectan al front (hacer justo antes de necesitarlas): errores `{ code, message }` en vez de `{ error }`; refresh token en cookie `httpOnly`; citas aisladas por dueño (ejercicio 2) antes de la Agenda; 400 que hoy responden 500
 - ¿Un ORM (Prisma o Drizzle) en clinica-api? Ahora usa SQL a mano con `pg` → cuando se quiera
 - VS Code abierto en `clinica/`: el `.vscode/settings.json` de rehabit-app (format on save) solo funciona abriendo `code ~/Projects/clinica/rehabit-app`
 - Register: mismo patrón que el login, para hacerlo él solo → después de terminar el login
