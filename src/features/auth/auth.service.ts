@@ -1,5 +1,13 @@
 import { env } from "@/shared/config/env";
-
+import { z } from "zod";
+const LoginResponseSchema = z.object({
+  token: z.string(),
+  user: z.object({
+    id: z.int(),
+    email: z.string(),
+    name: z.string(),
+  }),
+});
 export async function login(email: string, password: string) {
   const response = await fetch(`${env.VITE_API_URL}/auth/login`, {
     method: "POST",
@@ -10,5 +18,5 @@ export async function login(email: string, password: string) {
     throw new Error("Email or password incorrect");
   }
 
-  return response.json();
+  return LoginResponseSchema.parse(await response.json());
 }
