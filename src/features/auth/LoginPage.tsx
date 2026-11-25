@@ -23,6 +23,7 @@ function LoginPage() {
   }
   return (
     <AuthLayout>
+      <title>Log in · Rehabit</title>
       <div className="flex w-full max-w-sm flex-col gap-6">
         <div className="flex flex-col gap-1 animate-in fade-in slide-in-from-bottom-4 duration-500 fill-mode-both">
           <h1 className="text-3xl font-bold tracking-tight">Welcome back</h1>
