@@ -188,3 +188,129 @@ abres la app → ¿hay token en el store?
    SÍ → /agenda (AppLayout + AgendaPage)
 /agenda sin token → RequireStep te devuelve a /login
 ```
+
+## 15. Animaciones
+
+### Con `tw-animate-css` (viene con shadcn, se activa en `index.css`)
+
+Fórmula: `animate-in` + **cómo entra** + `duration-*` (+ `delay-*` + `fill-mode-both`).
+
+| Clase                                | Qué hace                                        |
+| ------------------------------------ | ----------------------------------------------- |
+| `animate-in`                         | anima al aparecer                               |
+| `fade-in`                            | de transparente a visible                       |
+| `slide-in-from-bottom-4` / `-left-4` | entra desde abajo / desde la izquierda          |
+| `zoom-in-95`                         | entra creciendo desde el 95 %                   |
+| `duration-500`                       | dura 500 ms                                     |
+| `delay-100`, `delay-200`...          | espera antes de empezar (entrada escalonada)    |
+| `fill-mode-both`                     | invisible mientras espera su turno (sin saltos) |
+
+- **Entrada escalonada** = misma animación y un `delay` distinto en cada bloque: título (0) → email (100) → contraseña (200) → botón (300).
+- Para que una etiqueta y su campo entren juntos, se agrupan en un `<div className="flex flex-col gap-2">`.
+
+### Mis propias animaciones (`@keyframes` al final de `index.css`)
+
+```css
+@theme {
+  --animate-float: float 6s ease-in-out infinite; /* crea la clase animate-float */
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    } /* abajo */
+    50% {
+      transform: translateY(-8px);
+    } /* sube 8 px */
+  }
+}
+```
+
+- `@keyframes` = los "fotogramas": cómo está en el 0 %, el 50 %, el 100 %...
+- `--animate-nombre: keyframes duración curva repetición` → crea la clase `animate-nombre`.
+- `ease-in-out` = arranca y frena suave. `infinite` = se repite siempre.
+- En Rehabit: `float` (la tarjeta de la cita sube y baja) y `drift` (las manchas de luz se mueven despacio).
+
+### El panel de marca
+
+| Clase                                      | Qué hace                                                    |
+| ------------------------------------------ | ----------------------------------------------------------- |
+| `bg-linear-to-br from-primary to-blue-800` | degradado en diagonal (de arriba-izquierda a abajo-derecha) |
+| `relative` (padre) + `absolute` (hijo)     | colocar algo libremente encima o debajo, sin empujar nada   |
+| `overflow-hidden`                          | recorta lo que se sale                                      |
+| `blur-3xl`                                 | difumina mucho (las manchas de luz)                         |
+| `bg-white/10` + `backdrop-blur-sm`         | efecto cristal esmerilado                                   |
+| `ring-1 ring-white/20`                     | borde fino y suave                                          |
+| `w-fit`                                    | mide lo que su contenido                                    |
+
+### Reglas
+
+- **`motion-safe:`** → solo anima si el usuario no ha pedido "reducir movimiento" (accesibilidad; algunas personas se marean).
+- La decoración lleva **`aria-hidden="true"`**: los lectores de pantalla la ignoran.
+- En una app de trabajo, movimiento **suave y lento**. Animar mejor, no más.
+- Datos de ejemplo en una app de salud: que se vean **claramente de demo** (nada de nombre + diagnóstico).
+
+## 16. Repaso del login, pieza a pieza
+
+### Layout y `children`
+
+- Todo lo que pongo **entre** `<AuthLayout>` y `</AuthLayout>` le llega a `AuthLayout` como `children`. Él decide dónde pintarlo escribiendo `{children}` (dentro del `<main>`).
+- `flex` en el padre = sus hijos se ponen **en fila, en el orden en que están escritos**. `flex-1` = "ocupa el espacio que sobre".
+- `animate-in slide-in-from-left-4` = **cómo entra** (animación), **no dónde está**. `<aside>` es solo una etiqueta con significado: no coloca nada.
+
+### `useState`: leer y escribir
+
+- `const [email, setEmail] = useState("")` → `useState` devuelve **2 cosas** y los `[ ]` solo las sacan de la caja y les ponen nombre.
+  - `email` → **leer** lo que pone la pizarra.
+  - `setEmail(nuevo)` → **escribir**, y React **repinta**. Nunca `email = nuevo`: React no se entera.
+- `setEmail` no juzga si el email es correcto: apunta lo que escribas.
+- `e.target.value` = **todo** el texto de la caja, no solo la última tecla. `onChange` suena con cualquier cambio (escribir, borrar, pegar).
+- Eventos de React (`onClick`, `onChange`, `onSubmit`) = timbres que ya existen. Yo solo digo qué función ejecutar.
+
+### Enviar el formulario
+
+- `submit` = la **acción** de enviar (palabra de HTML).
+- `handleSubmit` = **mi función** ("la que se encarga del envío"). El nombre lo elijo yo.
+- Botón `type="submit"` → envía el formulario → suena `<form onSubmit={handleSubmit}>`. El botón no necesita `onClick`, y así también funciona con Enter. `type="button"` no envía nada.
+- `e.preventDefault()` = "navegador, no recargues". Sin él, la página se recarga y las pizarras se vacían.
+
+### Pintar según el estado
+
+- `!` = "NO". `if (!ok)` = "si NO ha ido bien...".
+- `{algo && (<p>...</p>)}` = pinta solo si `algo` tiene valor. `""`, `false`, `null` y `0` cuentan como "nada".
+- **Ternario**: `condición ? siEsTrue : siEsFalse`. Ejemplo: `{isSubmitting ? "Logging in..." : "Log in"}`.
+- `isSubmitting` = "¿estoy enviando ahora?". `true` antes del `await`, `false` después. Con `disabled` evita que se pulse 5 veces.
+
+### La cadena hasta el back
+
+```
+LoginPage → auth.store (login) → auth.service (loginRequest) → fetch → BACK
+```
+
+- `useAuthStore((state) => state.login)` = "del tablón, coge solo `login`".
+- `import { login as loginRequest }` = importo `login` con otro nombre para no chocar.
+- `throw` = "¡error, para!" → salta al `catch`. El store devuelve `true` (token guardado) o `false`.
+- El front **no sabe** qué contraseña es correcta: **pregunta** al back, que mira la base de datos (bcrypt) y responde **200 + token** o **401**.
+- `fetch` viene **de serie** con el navegador y devuelve un `response` con `.status`, `.ok` (`true` si es 200–299) y `.json()`. Un 401 **no** hace fallar a `fetch`: hay que mirar `.ok`.
+- `response.json()` convierte la respuesta en objeto; `Schema.parse(...)` (zod) **revisa** que tenga la forma correcta, como el control del aeropuerto.
+- `VITE_API_URL` (`http://localhost:3000`) + endpoint (`/auth/login`) = dirección completa.
+- El endpoint lo define el back: `app.use("/auth", ...)` + `router.post("/login", ...)`. Método y ruta tienen que coincidir.
+- Métodos HTTP (en los `*.routes.ts` del back): `GET` leer, `POST` crear, `PATCH` modificar, `DELETE` borrar. El login es `POST` porque los datos van en el body, no en la URL.
+- `env.ts` valida con zod al arrancar: si `VITE_API_URL` no es una URL, la app falla **ya y con un mensaje claro** (_fail fast_).
+
+### Validar: ¿quién decide si el email está bien?
+
+- `type="email"` → el navegador hace una comprobación básica (que haya `@`).
+- El **back** es el que manda: valida con zod y comprueba usuario y contraseña.
+- Validar en el front = **comodidad**. Validar en el back = **seguridad** (cualquiera puede saltarse el front con Postman).
+
+### `useState`, Zustand y `localStorage`
+
+|                                      | Para qué                                        | Ejemplo                                       |
+| ------------------------------------ | ----------------------------------------------- | --------------------------------------------- |
+| `useState` (pizarra del aula)        | datos de **un solo componente**                 | `email`, `errorMessage`, `isSubmitting`       |
+| Zustand (tablón del pasillo)         | datos que **comparten varias páginas**          | token, usuario, día seleccionado en la agenda |
+| `localStorage` (cajón del navegador) | cosas **no secretas** que sobreviven a recargar | tema oscuro, idioma                           |
+
+- Sin Zustand habría que pasar el dato por props piso a piso (_prop drilling_).
+- Zustand **no** es una medida de seguridad: lo seguro es que el token va **solo en memoria** (sin `persist`).
+- **Nunca** un token en `localStorage`: cualquier JavaScript de la página puede leerlo (ataque XSS).
