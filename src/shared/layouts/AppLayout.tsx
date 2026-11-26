@@ -30,6 +30,7 @@ export function AppLayout({ children }: AppLayoutProps) {
               <SidebarMenuButton asChild>
                 <Link to="/schedule">
                   <CalendarDays></CalendarDays>
+                  Schedule
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
