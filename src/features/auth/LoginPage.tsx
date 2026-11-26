@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useSearchParams, useNavigate } from "react-router-dom";
 import { useAuthStore } from "@/features/auth/auth.store";
 import { Button } from "@/shared/components/ui/button";
 import { Input } from "@/shared/components/ui/input";
@@ -14,6 +14,7 @@ function LoginPage() {
   const login = useAuthStore((state) => state.login);
   const [searchParams] = useSearchParams();
   const justRegistered = searchParams.get("registered") === "1";
+  const navigate = useNavigate();
 
   async function handleSubmit(e: React.SubmitEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -21,6 +22,9 @@ function LoginPage() {
     setIsSubmitting(true);
     const ok = await login(email, password);
     setIsSubmitting(false);
+    if (ok) {
+      navigate("/schedule");
+    }
     if (!ok) {
       setErrorMessage("Incorrect email or password");
     }
