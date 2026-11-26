@@ -314,3 +314,38 @@ LoginPage → auth.store (login) → auth.service (loginRequest) → fetch → B
 - Sin Zustand habría que pasar el dato por props piso a piso (_prop drilling_).
 - Zustand **no** es una medida de seguridad: lo seguro es que el token va **solo en memoria** (sin `persist`).
 - **Nunca** un token en `localStorage`: cualquier JavaScript de la página puede leerlo (ataque XSS).
+
+## 17. Router y registro
+
+### Router (`react-router-dom`)
+
+- `src/app/router.tsx` = la **lista de rutas**, como `auth.routes.ts` en el back: dirección (`path`) → página (`element`).
+- `main.tsx` pinta `<RouterProvider router={router} />` (el mostrador de recepción).
+- `element: <LoginPage />` (la página ya montada) ≠ `Component: LoginPage` (la receta).
+- `path: "*"` = comodín, "cualquier otra dirección" → `<Navigate to="/login" replace />`. Siempre **el último**.
+- `replace` = el botón "atrás" no vuelve a la dirección mala.
+- `<title>` dentro de una página (React 19) = el título de la **pestaña**.
+
+### Cambiar de página
+
+- `Link` = el **usuario** pulsa y cambia de página (como un `<a>`, pero sin recargar).
+- `navigate("/ruta")` (de `useNavigate()`) = el **código** cambia de página cuando pasa algo, por ejemplo tras registrarse bien. Como un taxi.
+- `?registered=1` = una **nota pegada en la dirección**. `LoginPage` la lee con `useSearchParams` y enseña el aviso verde. Sin la nota, no hay aviso.
+
+### El registro, paso a paso
+
+1. El router ve `/register` → pinta `RegisterPage`.
+2. Se crean 5 pizarras vacías: `name`, `email`, `password`, `errorMessage` e `isSubmitting`.
+3. Cada tecla → `onChange` → `setName` / `setEmail` / `setPassword`. (`setName` es una **función** guardada en una constante.)
+4. Botón `type="submit"` → el `<form>` suena (`onSubmit`) → `handleSubmit`.
+5. `e.preventDefault()` (no recargar; es del navegador) y `setErrorMessage("")` (borrar el error del intento anterior).
+6. `setIsSubmitting(true)` → botón gris con "Creating account...".
+7. `await register(...)` → página → store → service → back, y **esperar** la respuesta (asíncrono).
+8. `setIsSubmitting(false)` → el botón vuelve a "Create account".
+9. Según el resultado: `"registered"` → `navigate` al login; `"email_taken"` o `"failed"` → mensaje rojo.
+
+### El store como traductor
+
+- `useAuthStore((state) => state.register)` = del tablón, coge solo `register`. `state` es el nombre que le damos al tablón entero; lo de detrás del punto es lo que coges (`state.token`, `state.login`…). Coger solo lo necesario evita repintar de más.
+- El back habla en códigos (201, 409, 500). El service lanza un error especial con el 409 (`EmailAlreadyRegisteredError`). El store lo traduce a 3 palabras: `"registered"`, `"email_taken"`, `"failed"`.
+- En el registro el store **no guarda nada** en el tablón: registrarse no da token. Solo traduce.
