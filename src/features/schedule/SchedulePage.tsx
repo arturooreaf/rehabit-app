@@ -1,10 +1,12 @@
+import { AppLayout } from "@/shared/layouts/AppLayout";
+
 function SchedulePage() {
   return (
-    <div>
+    <AppLayout>
       <title>Schedule · Rehabit</title>
 
-      <p>Today's appointments</p>
-    </div>
+      <h1>Today's appointments</h1>
+    </AppLayout>
   );
 }
 
