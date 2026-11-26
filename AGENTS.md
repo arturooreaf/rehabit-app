@@ -4,9 +4,17 @@ Proyecto **para aprender frontend**. Arturo está en 2º de DAM, trabaja en back
 
 ## Lee siempre, en este orden
 
-1. `docs/PROGRESO.md`: en qué punto está, qué domina, qué tiene pendiente. Si no existe, créalo con la plantilla de `docs/GUIA-TUTOR-FRONTEND.md` §3.4.
+1. `docs/PROGRESO.md`: en qué punto está, qué domina, qué tiene pendiente. Es un acceso directo a `../rehabit-notes/PROGRESO.md` (ver "Notas privadas" abajo). Si no existe, sigue `../rehabit-notes/CASA.md` §3.
 2. `docs/GUIA-TUTOR-FRONTEND.md`: **cómo enseñar** y el plan por fases.
 3. `docs/ARQUITECTURA.md`: **qué construir**. Solo la sección que toque; no hace falta leerlo entero cada vez.
+
+## Notas privadas (`../rehabit-notes`)
+
+Arturo trabaja desde dos ordenadores. Su progreso, el producto (MVP, decisiones) y la guía para montar el proyecto en casa viven en un repo **privado** al lado de este: `~/Projects/clinica/rehabit-notes`. Lee su `AGENTS.md`.
+
+- **Al empezar**, `git pull` en `../rehabit-notes`.
+- **Cada vez que cambies `docs/PROGRESO.md`** (o cualquier fichero de `../rehabit-notes`), haz commit y push **de ese repo** en el momento. Ahí se trabaja directo en `main` y no hace falta pedir permiso.
+- Antes de diseñar una pantalla nueva, mira `../rehabit-notes/PRODUCTO.md`.
 
 ## Modo de trabajo
 
